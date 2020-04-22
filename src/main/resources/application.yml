@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: resource-server
+
+server:
+  port: 8081
+
+## Configure oauth2 client id, secret using which the resource server will
+## make rest call to the token info url of authorization server to authenticate/validate token
+
+security:
+  oauth2:
+    client:
+      clientId: RESOURCE_SERVER
+      clientSecret: resource_server_password
+    resource:
+      tokenInfoUri: http://localhost:8888/oauth/check_token
+
+## Configure Keystore containing Certificate using which token was generated at the authorization server.
+## This case, token will be authenticated at the resource server only and no call to authorization server to authenticate the token.
+## either one of the these two ways can be configured to validate token
+
+#security:
+#  oauth2:
+#    resource:
+#      jwt:
+#        key-store: classpath:oauth2-authorization-server.p12
+#        key-store-password: password
+#        key-alias: auth-server-cert
+
+logging:
+  level:
+    root: debug
